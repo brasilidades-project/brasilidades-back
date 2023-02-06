@@ -29,10 +29,19 @@ async function deleteFavorite(favoriteId: number) {
   });
 }
 
+async function deleteAllFavorites(userId: number) {
+  return prisma.favorite.deleteMany({
+    where: {
+      userId: userId
+    }
+  });
+}
+
 const placesRepository = {
   findMany,
   createFavorite,
-  deleteFavorite
+  deleteFavorite,
+  deleteAllFavorites
 };
 
 export default placesRepository;

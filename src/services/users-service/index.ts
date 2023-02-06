@@ -14,6 +14,11 @@ export async function createUser({ email, password }: CreateUserParams): Promise
   });
 }
 
+export async function deleteUser(userId: number) {
+  await userRepository.deleteAllSessions(userId);
+  return userRepository.deleteAccount(userId);
+}
+
 async function validateUniqueEmailOrFail(email: string) {
   const userWithSameEmail = await userRepository.findByEmail(email);
   if (userWithSameEmail) {
@@ -42,7 +47,8 @@ export type UpdatePasswordParams = Pick<User, "password" | "id">;
 const userService = {
   createUser,
   updateEmail,
-  updatePassword
+  updatePassword,
+  deleteUser
 };
 
 export * from "./errors";

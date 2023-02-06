@@ -43,11 +43,29 @@ async function updatePassword({ password }: Prisma.UserUpdateInput, userId: numb
   });
 }
 
+async function deleteAllSessions(userId: number) {
+  return prisma.session.deleteMany({
+    where: {
+      userId: userId
+    }
+  });
+}
+
+async function deleteAccount(userId: number) {
+  return prisma.user.delete({
+    where: {
+      id: userId
+    }
+  });
+}
+
 const userRepository = {
   findByEmail,
   create,
   updateEmail,
-  updatePassword
+  updatePassword,
+  deleteAccount,
+  deleteAllSessions
 };
 
 export default userRepository;

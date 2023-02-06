@@ -35,3 +35,14 @@ export async function placesDelete(req: AuthenticatedRequest, res: Response) {
     return res.status(httpStatus.BAD_REQUEST).send(error);
   }
 }
+
+export async function placesDeleteAll(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req.params;
+
+  try {
+    const unfavorite = await placesService.unfavoriteAllPlaces(Number(userId));
+    return res.status(httpStatus.OK).send(unfavorite);
+  } catch (error) {
+    return res.status(httpStatus.BAD_REQUEST).send(error);
+  }
+}

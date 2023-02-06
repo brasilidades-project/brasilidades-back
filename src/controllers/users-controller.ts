@@ -21,6 +21,17 @@ export async function usersPost(req: Request, res: Response) {
   }
 }
 
+export async function usersDelete(req: Request, res: Response) {
+  const { userId } = req.params;
+
+  try {
+    const user = await userService.deleteUser(Number(userId));
+    return res.status(httpStatus.CREATED).send(user);
+  } catch (error) {
+    return res.status(httpStatus.BAD_REQUEST).send(error);
+  }
+}
+
 export async function emailPost(req: AuthenticatedRequest, res: Response) {
   const { email, id } = req.body;
   const userId = id;

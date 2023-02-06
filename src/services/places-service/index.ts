@@ -16,10 +16,15 @@ export async function unfavoritePlace(favoriteId: number): Promise<Favorite> {
   return placesRepository.deleteFavorite(favoriteId);
 }
 
+export async function unfavoriteAllPlaces(userId: number) {
+  return placesRepository.deleteAllFavorites(userId);
+}
+
 const placesService = {
   getDistrictPlaces,
   favoritePlace,
-  unfavoritePlace
+  unfavoritePlace,
+  unfavoriteAllPlaces
 };
 
 export default placesService;
