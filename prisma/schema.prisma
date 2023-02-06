@@ -18,6 +18,7 @@ model User {
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   Session    Session[]
+  Favorite   Favorite[]
 }
 
 model Session {
@@ -29,4 +30,37 @@ model Session {
   updatedAt DateTime @updatedAt
 }
 
+model Place {
+  id           Int      @id @default(autoincrement())
+  name         String
+  image        String
+  image2       String
+  image3       String
+  image4       String
+  description  String
+  city         String
+  googleMapUrl String
+  isPaid       Boolean
+  hasFood      Boolean
+  hasCellular  Boolean
+  hasWc        Boolean
+  hasGuidance  Boolean
+  isTrekking   Boolean
+  needId       Boolean
+  car          Boolean
+  airplane     Boolean
+  boat         Boolean
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  Favorite     Favorite[]
+}
 
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id])
+  placeId   Int
+  Place     Place    @relation(fields: [placeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
