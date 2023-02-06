@@ -32,6 +32,7 @@ model Session {
 
 model Place {
   id           Int      @id @default(autoincrement())
+  district     String
   name         String
   image        String
   image2       String
