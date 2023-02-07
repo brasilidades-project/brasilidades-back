@@ -7,6 +7,11 @@ export async function getDistrictPlaces(district: string): Promise<Place[]> {
   return placesRepository.findMany(district);
 }
 
+export async function getFavoritePlaces(userId: number): Promise<Place[]> {
+
+  return placesRepository.findManyFavorites(userId);
+}
+
 export async function favoritePlace(placeId: number, userId: number): Promise<Favorite> {
 
   return placesRepository.createFavorite(placeId, userId);
@@ -24,7 +29,8 @@ const placesService = {
   getDistrictPlaces,
   favoritePlace,
   unfavoritePlace,
-  unfavoriteAllPlaces
+  unfavoriteAllPlaces,
+  getFavoritePlaces
 };
 
 export default placesService;

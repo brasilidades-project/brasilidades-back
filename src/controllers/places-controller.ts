@@ -14,6 +14,17 @@ export async function placesGet(req: AuthenticatedRequest, res: Response) {
   }
 }
 
+export async function favoritePlacesGet(req: AuthenticatedRequest, res: Response) {
+  const { userId } = req.params;
+
+  try {
+    const places = await placesService.getFavoritePlaces(Number(userId));
+    return res.status(httpStatus.OK).send(places);
+  } catch (error) {
+    return res.status(httpStatus.BAD_REQUEST).send(error);
+  }
+}
+
 export async function placesPost(req: AuthenticatedRequest, res: Response) {
   const { placeId, userId } = req.body;
 

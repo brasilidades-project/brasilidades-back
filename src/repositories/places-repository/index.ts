@@ -1,10 +1,24 @@
 import { prisma } from "@/config";
-import { Prisma } from "@prisma/client";
 
 async function findMany(district: string) {
   return prisma.place.findMany({
     where: {
       district
+    },
+    include: {
+      Favorite: true
+    }
+  });
+}
+
+async function findManyFavorites(userId: number) {
+  return prisma.place.findMany({
+    where: {
+      Favorite: { 
+        some: { 
+          userId 
+        } 
+      }
     },
     include: {
       Favorite: true
@@ -41,7 +55,8 @@ const placesRepository = {
   findMany,
   createFavorite,
   deleteFavorite,
-  deleteAllFavorites
+  deleteAllFavorites,
+  findManyFavorites
 };
 
 export default placesRepository;
